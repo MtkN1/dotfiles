@@ -22,7 +22,7 @@ for package in "${packages[@]}"; do
     if ! command -v "${_user_local_bin}/${package}" >/dev/null 2>&1; then
         "${_install_dir}/uv" tool install "${package}"
     fi
-
+done
 if ! command -v "${_user_local_bin}/gpkg" >/dev/null 2>&1; then
     "${_install_dir}/uv" tool install --from git+https://github.com/MtkN1/gpkg.git gpkg
 fi
