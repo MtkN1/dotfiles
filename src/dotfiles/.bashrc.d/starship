@@ -1,0 +1,11 @@
+#!/bin/bash
+
+_local_bin="${HOME}/.local/bin"
+
+if command -v "${_local_bin}/starship" >/dev/null 2>&1; then
+    if [ ! -f "${HOME}/.config/starship.toml" ]; then
+        "${_local_bin}/starship" preset gruvbox-rainbow -o "${HOME}/.config/starship.toml"
+    fi
+
+    eval "$("${_local_bin}/starship" init bash)"
+fi
