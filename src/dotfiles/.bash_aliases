@@ -9,7 +9,7 @@ alias cdtemp='cd $(mktemp -d) && pwd'
 # User specific environment and startup programs
 
 if [ -d "${HOME}/.bashrc.d" ]; then
-    for _rcfile in "${HOME}/.bashrc.d/*"; do
+    for _rcfile in ${HOME}/.bashrc.d/*; do
         . "${_rcfile}"
     done
 fi
