@@ -197,7 +197,7 @@ def main() -> None:
 
             print("Make...")
             ret = subprocess.run(
-                ["make"],
+                ["make", "-j", str(os.cpu_count())],
                 cwd=extracted_dir,
                 capture_output=True,
                 check=True,
