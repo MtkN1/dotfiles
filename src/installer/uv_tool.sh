@@ -33,7 +33,7 @@ fi
 
 # Upgrade
 "${_install_dir}/uv" tool upgrade --all
-"${_install_dir}/gpkg" upgrade
+"${_user_local_bin}/gpkg" upgrade
 
 # Completions
 mkdir --parents "${_completions_dir}"
