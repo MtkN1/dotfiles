@@ -1,7 +1,6 @@
 #!/bin/bash -eux
 
 packages=(
-    'awscli'
     'hatch'
     'pdm'
     'poetry'
@@ -17,18 +16,24 @@ if ! command -v "${_install_dir}/uv" >/dev/null 2>&1; then
     eixt 1
 fi
 
-# Install
+# Install (package name == Command name)
 for package in "${packages[@]}"; do
     if ! command -v "${_user_local_bin}/${package}" >/dev/null 2>&1; then
         "${_install_dir}/uv" tool install "${package}"
     fi
 done
+# Install (package name != Command name)
+if ! command -v "${_user_local_bin}/aws" >/dev/null 2>&1; then
+    "${_install_dir}/uv" tool install awscli
+fi
+# Install (self-hosted)
 if ! command -v "${_user_local_bin}/gpkg" >/dev/null 2>&1; then
     "${_install_dir}/uv" tool install --from git+https://github.com/MtkN1/gpkg.git gpkg
 fi
 
 # Upgrade
 "${_install_dir}/uv" tool upgrade --all
+"${_install_dir}/gpkg" upgrade
 
 # Completions
 mkdir --parents "${_completions_dir}"
