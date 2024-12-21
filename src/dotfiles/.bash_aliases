@@ -4,7 +4,14 @@ alias ls='ls --color=auto --group-directories-first -F'
 alias ll='ls -Alh'
 alias la='ls -A'
 
-alias cdtemp='cd $(mktemp -d) && pwd'
+cdtemp() {
+    local dir
+    if dir=$(mktemp -d); then
+        cd "$dir"
+    else
+        return "$?"
+    fi
+}
 
 # User specific environment and startup programs
 
