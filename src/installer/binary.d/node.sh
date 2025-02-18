@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-_version='v20.17.0'
+_version='v22.14.0'
 _stem="node-${_version}-linux-x64"
 _url="https://nodejs.org/dist/${_version}/${_stem}.tar.xz"
 
