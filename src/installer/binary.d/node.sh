@@ -4,7 +4,7 @@ _version='v20.17.0'
 _stem="node-${_version}-linux-x64"
 _url="https://nodejs.org/dist/${_version}/${_stem}.tar.xz"
 
-if ! command -v node >/dev/null 2>&1; then
+if ! command -v node >/dev/null 2>&1 || [ "$(node -v)" != "$_version" ]; then
     _tempdir=$(mktemp -d)
 
     curl -fL "${_url}" | tar -C "${_tempdir}" -xJ
