@@ -6,8 +6,9 @@ alias la='ls -A'
 
 cdtemp() {
     local dir
-    if dir=$(mktemp -d); then
+    if dir=$(mktemp -d -p /var/tmp); then
         cd "$dir"
+        pwd
     else
         return "$?"
     fi
