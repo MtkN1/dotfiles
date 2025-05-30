@@ -100,8 +100,10 @@ def main() -> None:
     release_list = fetch_release_list()
     latest_minor_release: dict[tuple[int, int], Release] = {}
     for release in release_list:
+        if not release.slug.startswith("python-"):
+            continue
         version_parts = release.name.removeprefix("Python ").split(".")
-        assert len(version_parts) == 3
+        assert len(version_parts) == 3, version_parts
         minor_tuple = (int(version_parts[0]), int(version_parts[1]))
 
         if minor_tuple not in active_minor_release:
