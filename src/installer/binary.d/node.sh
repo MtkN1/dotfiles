@@ -1,10 +1,11 @@
 #!/bin/bash -eux
 
+_install_dir="${HOME}/.local/bin"
 _version='v22.14.0'
 _stem="node-${_version}-linux-x64"
 _url="https://nodejs.org/dist/${_version}/${_stem}.tar.xz"
 
-if ! command -v node >/dev/null 2>&1 || [ "$(node -v)" != "$_version" ]; then
+if ! command -v "${_install_dir}/node" >/dev/null 2>&1 || [ "$(${_install_dir}/node -v)" != "$_version" ]; then
     _tempdir=$(mktemp -d)
 
     curl -fL "${_url}" | tar -C "${_tempdir}" -xJ
