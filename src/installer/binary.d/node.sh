@@ -18,3 +18,7 @@ if ! command -v "${_install_dir}/node" >/dev/null 2>&1 || [ "$(${_install_dir}/n
 
     rm -rf "${_tempdir}"
 fi
+
+_completions_dir="${BASH_COMPLETION_USER_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion}/completions"
+mkdir --parent "${_completions_dir}"
+"${_install_dir}/npm" completion bash > "${_completions_dir}/npm"
