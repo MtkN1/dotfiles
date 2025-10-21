@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  lint:
+    name: Lint Scripts
+    runs-on: ubuntu-24.04
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Install ShellCheck
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y shellcheck
+    
+    - name: Run ShellCheck on shell scripts
+      run: |
+        echo "Running ShellCheck on all .sh files..."
+        find src -name "*.sh" -type f -print0 | xargs -0 shellcheck
+    
+    - name: Check Python syntax
+      run: |
+        echo "Checking Python syntax..."
+        find src -name "*.py" -type f -exec python3 -m py_compile {} \;
+    
+    - name: Verify script permissions
+      run: |
+        echo "Verifying all scripts are executable..."
+        for script in $(find src -name "*.sh" -o -name "*.py"); do
+          if [ ! -x "$script" ]; then
+            echo "Error: $script is not executable"
+            exit 1
+          fi
+        done
+        echo "All scripts have executable permissions"
