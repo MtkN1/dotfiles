@@ -16,22 +16,13 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     
-    - name: Test shell script syntax
-      run: |
-        echo "Testing shell script syntax..."
-        for script in $(find src -name "*.sh" -type f); do
-          echo "Checking $script"
-          bash -n "$script"
-        done
-        echo "All shell scripts have valid syntax"
+    - name: Run software installer
+      run: ./src/installer/install.sh
     
-    - name: Test Python script syntax
-      run: |
-        echo "Testing Python script syntax..."
-        for script in $(find src -name "*.py" -type f); do
-          echo "Checking $script"
-          python3 -m py_compile "$script"
-        done
-        echo "All Python scripts have valid syntax"
+    - name: Run software upgrade
+      run: ./src/installer/upgrade.sh
+    
+    - name: Run dotfiles installer
+      run: ./src/dotfiles/install.sh
