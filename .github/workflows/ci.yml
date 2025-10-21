@@ -18,11 +18,38 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v5
     
-    - name: Run software installer
-      run: ./src/installer/install.sh
+    - name: Run software installer in Docker
+      run: |
+        docker run --rm -v $PWD:/workspace -w /workspace \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          --group-add $(stat -c '%g' /var/run/docker.sock) \
+          ubuntu:24.04 \
+          bash -c "apt-get update && apt-get install -y sudo docker.io && \
+                   useradd -m -s /bin/bash testuser && \
+                   usermod -aG sudo testuser && \
+                   usermod -aG docker testuser && \
+                   echo 'testuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+                   chown -R testuser:testuser /workspace && \
+                   su - testuser -c 'cd /workspace && ./src/installer/install.sh'"
     
-    - name: Run software upgrade
-      run: ./src/installer/upgrade.sh
+    - name: Run software upgrade in Docker
+      run: |
+        docker run --rm -v $PWD:/workspace -w /workspace \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          --group-add $(stat -c '%g' /var/run/docker.sock) \
+          ubuntu:24.04 \
+          bash -c "apt-get update && apt-get install -y sudo docker.io && \
+                   useradd -m -s /bin/bash testuser && \
+                   usermod -aG sudo testuser && \
+                   usermod -aG docker testuser && \
+                   echo 'testuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+                   chown -R testuser:testuser /workspace && \
+                   su - testuser -c 'cd /workspace && ./src/installer/upgrade.sh'"
     
-    - name: Run dotfiles installer
-      run: ./src/dotfiles/install.sh
+    - name: Run dotfiles installer in Docker
+      run: |
+        docker run --rm -v $PWD:/workspace -w /workspace \
+          ubuntu:24.04 \
+          bash -c "useradd -m -s /bin/bash testuser && \
+                   chown -R testuser:testuser /workspace && \
+                   su - testuser -c 'cd /workspace && ./src/dotfiles/install.sh'"
