@@ -20,9 +20,9 @@ jobs:
     
     - name: Run software installer in Docker
       run: |
-        docker run --rm -v $PWD:/workspace -w /workspace \
+        docker run --rm --privileged \
+          -v $PWD:/workspace -w /workspace \
           -v /var/run/docker.sock:/var/run/docker.sock \
-          --group-add $(stat -c '%g' /var/run/docker.sock) \
           ubuntu:24.04 \
           bash -c "apt-get update && apt-get install -y sudo docker.io && \
                    useradd -m -s /bin/bash testuser && \
@@ -34,9 +34,9 @@ jobs:
     
     - name: Run software upgrade in Docker
       run: |
-        docker run --rm -v $PWD:/workspace -w /workspace \
+        docker run --rm --privileged \
+          -v $PWD:/workspace -w /workspace \
           -v /var/run/docker.sock:/var/run/docker.sock \
-          --group-add $(stat -c '%g' /var/run/docker.sock) \
           ubuntu:24.04 \
           bash -c "apt-get update && apt-get install -y sudo docker.io && \
                    useradd -m -s /bin/bash testuser && \
