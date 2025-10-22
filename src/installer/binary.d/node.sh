@@ -21,5 +21,5 @@ fi
 
 _completions_dir="${BASH_COMPLETION_USER_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion}/completions"
 mkdir --parent "${_completions_dir}"
-"${_install_dir}/node" node --completion-bash > "${_completions_dir}/node"
+"${_install_dir}/node" --completion-bash > "${_completions_dir}/node"
 "${_install_dir}/npm" completion bash > "${_completions_dir}/npm"
