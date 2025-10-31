@@ -528,10 +528,10 @@ def main() -> None:
     config = load_config(config_path)
 
     execute_apt(console, environ, config.apt_get)
-    # execute_snap(console, environ, config.snap)
+    execute_snap(console, environ, config.snap)
     execute_mise(console, environ, config.mise)
     execute_uv(console, environ, config.uv_python, config.uv_tool)
-    # execute_docker(console, environ, config.docker)
+    execute_docker(console, environ, config.docker)
 
 
 if __name__ == "__main__":
