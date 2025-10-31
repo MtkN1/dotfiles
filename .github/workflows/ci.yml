@@ -22,7 +22,7 @@ jobs:
             src/installer/config.toml \
             src/installer/install.py \
             ci/usr/local/libexec/dotfiles/ \
-            --create-dirs
+            --create-dirs \
             --mode 0644
       - name: Smoke test
         run: |
