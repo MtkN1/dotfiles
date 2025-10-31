@@ -15,7 +15,7 @@ jobs:
         run: |
           lxc launch ubuntu:24.04 ci \
             --config security.nesting=true \
-            --config cloud-init.user-data="$(cat src/installer/cloud-init.yml)"
+            --config cloud-init.user-data="$(cat src/installer/cloud-init.yml)" \
             --quiet
           lxc exec ci -- cloud-init status --wait
           lxc file push \
