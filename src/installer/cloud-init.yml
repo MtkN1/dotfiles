@@ -8,3 +8,4 @@ packages:
   - sudo
 runcmd:
   - ["/bin/sh", "-c", "curl -fL https://get.docker.com | sh"]
+  - ["usermod", "-aG", "docker", "ubuntu"]
