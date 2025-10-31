@@ -23,7 +23,7 @@ jobs:
             src/installer/install.py \
             ci/usr/local/libexec/dotfiles/ \
             --create-dirs \
-            --mode 0644
+            --uid 1000 --gid 1000
       - name: Smoke test
         run: |
           lxc exec ci -- su - ubuntu -c '/usr/bin/python3 /usr/local/libexec/dotfiles/install.py'
