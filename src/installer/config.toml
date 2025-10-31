@@ -1,0 +1,66 @@
+[apt_get]
+packages = [
+    "build-essential",
+]
+
+[snap]
+snaps = [
+    { name = "aws-cli", options = [ "--classic" ] },
+    { name = "google-cloud-sdk", options = [ "--classic" ] },
+]
+
+[mise]
+core = [
+    "go",
+    "node",
+    "rust",
+]
+tools = [
+    "aqua:BurntSushi/ripgrep",
+    "aqua:astral-sh/uv",
+    "aqua:cli/cli",
+    "aqua:ducaale/xh",
+    "aqua:eza-community/eza",
+    "aqua:jdx/usage",
+    "aqua:jqlang/jq",
+    "aqua:lsd-rs/lsd",
+    "aqua:mikefarah/yq",
+    "aqua:sharkdp/bat",
+    "aqua:sharkdp/fd",
+    "aqua:starship/starship",
+    "npm:@github/copilot",
+    "npm:@anthropic-ai/claude-code",
+    "npm:@google/gemini-cli",
+    "npm:@dotenvx/dotenvx",
+    "npm:@openai/codex",
+]
+
+[uv_python]
+versions = [
+    "3.10",
+    "3.11",
+    "3.12",
+    "3.13",
+    "3.13t",
+    "3.14",
+    "3.14t",
+]
+
+[uv_tool]
+packages = [
+    "hatch",
+    "httpie",
+    { name = "openhands", options = [ "--python=3.12" ] },
+    "pdm",
+    "poetry",
+    { name = "posting", options = [ "--python=3.13" ] },
+]
+
+[docker]
+images = [
+    "docker.io/library/buildpack-deps:trixie",
+    "docker.io/library/buildpack-deps:noble",
+    "mcr.microsoft.com/devcontainers/base:trixie",
+    "mcr.microsoft.com/devcontainers/base:noble",
+    "mcr.microsoft.com/devcontainers/universal:2-linux",
+]

@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch: null
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: canonical/setup-lxd@v0.1.3
+      - name: Launch LXD instance
+        run: |
+          lxc launch images:ubuntu/24.04 ci \
+            --config security.nesting=true \
+            --config cloud-init.user-data="$(cat src/installer/cloud-init.yml)"
+            --quiet
+          lxc exec ci -- cloud-init status --wait
+          lxc file push \
+            src/installer/config.toml \
+            src/installer/install.py \
+            ci/usr/local/libexec/dotfiles/ \
+            --create-dirs
+      - name: Smoke test
+        run: |
+          lxc exec ci -- su - ubuntu -c '/usr/bin/python3 /usr/local/libexec/dotfiles/install.py'
