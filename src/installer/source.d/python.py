@@ -58,9 +58,7 @@ class ReleaseCycle:
 
 RELEASE_LIST_URL = "https://www.python.org/api/v2/downloads/release/"
 RELEASE_FILE_LIST_URL = "https://www.python.org/api/v2/downloads/release_file/"
-RELEASE_CYCLE_URL = (
-    "https://github.com/python/devguide/raw/main/include/release-cycle.json"
-)
+RELEASE_CYCLE_URL = "https://peps.python.org/api/release-cycle.json"
 
 
 def fetch_release_list() -> list[Release]:
